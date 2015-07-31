@@ -7,12 +7,29 @@ def get_refs_list(filename):
 
 	line_index = 0
 	
+	recording = False
+	current_entry = ""
+	
 	for line in refs_source_file:
 		line_index += 1
 		l = line.strip()
-		# Skip empty lines, or those beginning with #
+		
 		if l == "" or l[0] == "#":
+			# Skip empty lines, or those beginning with #
 			pass
+			
+		elif l[0] == "%":
+			# Toggle whether it's taking a verbatim entry, and ignore the rest of the line
+			if recording:
+				refs_source_list.append([current_entry])
+				recording = False
+			if not recording:
+				current_entry = ""
+				recording = True
+				
+		elif recording:
+			current_entry += line
+			
 		else:
 			# Check the line has the correct structure, of two comma-separated sections
 			if len(l.split(",")) == 2:
@@ -49,7 +66,12 @@ def get_bibtex(ref_key,dblp_url):
 refs_source_list = get_refs_list("example.txt")
 bib_file = open("refs.bib","w")
 for source in refs_source_list:
-	bib_file.write(get_bibtex(source[0],source[1]))
+	if len(source) == 2:
+		bib_file.write(get_bibtex(source[0],source[1]))
+	elif len(source) == 1:
+		# It was a verbatim entry
+		bib_file.write(source[0])
+		
 	bib_file.write("\n\n")
 	
 bib_file.close()

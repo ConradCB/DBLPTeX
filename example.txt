@@ -2,7 +2,7 @@
 # Lines beginning with a #-sign are ignored by the script.  This allows easy commenting of the references.
 # Other lines follow the syntax of <desired citation key>,<URL of DBLP bibtex reference>
 # Note the use of /bibtex1/ in the url, this means DBLP doesn't use crossrefs.  Currently the script is not configured to work with anything else!
-# If necessary, we may write the script to handle custom references in this file, syntax TBD.
+# Entries not from DBLP can be included verbatim, wrapped in %-signs (on new lines)
 
 # To use the script, simply run the bib_generator.py script in the same directory as this example file.  It will output a refs.bib file.
 
@@ -11,3 +11,14 @@ Ley02,http://dblp.uni-trier.de/rec/bibtex/conf/spire/Ley02
 
 # The TexBook, 1986
 Knuth86,http://dblp.uni-trier.de/rec/bibtex/books/aw/Knuth86
+
+# An example of verbatim entires (not from DBLP)
+% A %-sign signals the start of a verbatim entry.  Text on this line is ignored.
+@article{CottonBarratt15,
+	author={Cotton{-}Barratt},
+	year={2015},
+	title={Completely Fictional Title},
+	booktitle={Fictional book}
+}
+% A second %-sign closes the verbatim entry.  Text on this line is also ignored.
+	
