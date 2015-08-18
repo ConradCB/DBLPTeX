@@ -23,7 +23,7 @@ def get_refs_list(filename):
 			if recording:
 				refs_source_list.append([current_entry])
 				recording = False
-			if not recording:
+			elif not recording:
 				current_entry = ""
 				recording = True
 				
